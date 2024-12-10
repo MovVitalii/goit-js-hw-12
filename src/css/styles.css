@@ -1,18 +1,96 @@
-/**
-  |============================
-  | include css partials with
-  | default @import url()
-  |============================
-*/
-/* Common styles */
 @import url('./reset.css');
 @import url('./base.css');
 @import url('./container.css');
 @import url('./animations.css');
 
-/* Sections style */
 @import url('./header.css');
 @import url('./vite-promo.css');
 @import url('./badges.css');
 @import url('./back-link.css');
 @import url('./footer.css');
+
+header {
+  background-color: #007bff;
+  padding: 10px;
+  text-align: center;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.search-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  width: 300px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #0056b3;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #004494;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+
+  width: 100%;
+  margin: 0 auto;
+}
+
+.gallery-item {
+  flex: 1 1 calc((100% - 120px) / 5);
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.info {
+  padding: 5px;
+  background-color: #f0f0f0;
+  display: flex;
+}
+
+.loader {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  text-align: center;
+  z-index: 1000;
+}
+
+.loader-text {
+  font-size: 16px;
+  color: #333;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: center;
+}
