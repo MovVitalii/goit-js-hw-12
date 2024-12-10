@@ -1,5 +1,4 @@
-import iziToast from 'izitoast'; 
-
+import iziToast from 'izitoast';
 export const renderImages = images => {
   const gallery = document.querySelector('.gallery');
 
@@ -27,12 +26,12 @@ export const clearGallery = () => {
 };
 
 export const showLoadingIndicator = () => {
-  const loader = document.getElementById('loader');
+  const loader = document.querySelector('.loader');
   loader.style.display = 'block';
 };
 
 export const hideLoadingIndicator = () => {
-  const loader = document.getElementById('loader');
+  const loader = document.querySelector('.loader');
   loader.style.display = 'none';
 };
 

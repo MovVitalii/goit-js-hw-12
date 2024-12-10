@@ -1,3 +1,5 @@
+// src/main.js
+
 import { fetchImages, resetPage, incrementPage } from './js/pixabay-api';
 import {
   renderImages,
@@ -7,8 +9,8 @@ import {
   showNoImagesFoundMessage,
   showEndOfCollectionMessage,
 } from './js/render-functions.js';
-import 'izitoast/dist/css/iziToast.min.css';
-import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css'; 
+import iziToast from 'izitoast'; 
 
 const form = document.querySelector('.search-form');
 const input = document.querySelector('.search-input');
@@ -39,6 +41,7 @@ const handleSearch = async () => {
     iziToast.error({
       title: 'Error!',
       message: 'Something went wrong. Please try again later.',
+      position: 'topRight',
     });
   } finally {
     hideLoadingIndicator();
@@ -68,7 +71,6 @@ const handleLoadMore = async () => {
     if (!galleryItem) return; 
 
     const { height: cardHeight } = galleryItem.getBoundingClientRect();
-
     window.scrollBy({
       top: cardHeight * 2,
       left: 0,
@@ -78,6 +80,7 @@ const handleLoadMore = async () => {
     iziToast.error({
       title: 'Error!',
       message: 'Something went wrong. Please try again later.',
+      position: 'topRight',
     });
   } finally {
     hideLoadingIndicator();
@@ -92,6 +95,7 @@ form.addEventListener('submit', async e => {
     iziToast.warning({
       title: 'Warning!',
       message: 'Please enter a search query.',
+      position: 'topRight',
     });
     return;
   }
@@ -102,4 +106,4 @@ form.addEventListener('submit', async e => {
 });
 
 loadMoreBtn.addEventListener('click', handleLoadMore);
-document.addEventListener('DOMContentLoaded', handleSearch);
+
