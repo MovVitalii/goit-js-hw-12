@@ -8,7 +8,7 @@ import {
   showEndOfCollectionMessage,
 } from './js/render-functions.js';
 import iziToast from 'izitoast';
-import 'izitoast/dist/css/izitoast.min.css';
+import 'izitoast/dist/css/iziToast.min.css';
 
 const form = document.querySelector('.search-form');
 const input = document.querySelector('.search-input');
