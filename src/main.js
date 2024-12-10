@@ -7,8 +7,8 @@ import {
   showNoImagesFoundMessage,
   showEndOfCollectionMessage,
 } from './js/render-functions.js';
-import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import iziToast from 'izitoast';
 
 const form = document.querySelector('.search-form');
 const input = document.querySelector('.search-input');
@@ -64,12 +64,14 @@ const handleLoadMore = async () => {
       loadMoreBtn.style.display = 'block';
     }
 
-    const { height: cardHeight } = document
-      .querySelector('.gallery')
-      .firstElementChild.getBoundingClientRect();
+    const galleryItem = document.querySelector('.gallery-item');
+    if (!galleryItem) return; 
+
+    const { height: cardHeight } = galleryItem.getBoundingClientRect();
 
     window.scrollBy({
       top: cardHeight * 2,
+      left: 0,
       behavior: 'smooth',
     });
   } catch (error) {
@@ -100,3 +102,4 @@ form.addEventListener('submit', async e => {
 });
 
 loadMoreBtn.addEventListener('click', handleLoadMore);
+document.addEventListener('DOMContentLoaded', handleSearch);
