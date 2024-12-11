@@ -1,5 +1,3 @@
-// src/main.js
-
 import { fetchImages, resetPage, incrementPage } from './js/pixabay-api';
 import {
   renderImages,
@@ -9,8 +7,10 @@ import {
   showNoImagesFoundMessage,
   showEndOfCollectionMessage,
 } from './js/render-functions.js';
-import 'izitoast/dist/css/iziToast.min.css'; 
-import iziToast from 'izitoast'; 
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 const form = document.querySelector('.search-form');
 const input = document.querySelector('.search-input');
@@ -19,6 +19,14 @@ const loadMoreBtn = document.querySelector('.load-more');
 let currentQuery = '';
 let totalHits = 0;
 
+// Ініціалізація SimpleLightbox
+const lightbox = new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
+// Обробка пошуку
 const handleSearch = async () => {
   clearGallery();
   showLoadingIndicator();
@@ -34,6 +42,8 @@ const handleSearch = async () => {
     }
 
     renderImages(data.hits);
+    lightbox.refresh();
+
     if (totalHits > 15) {
       loadMoreBtn.style.display = 'block';
     }
@@ -48,6 +58,7 @@ const handleSearch = async () => {
   }
 };
 
+// Обробка кнопки Load More
 const handleLoadMore = async () => {
   incrementPage();
   showLoadingIndicator();
@@ -56,9 +67,11 @@ const handleLoadMore = async () => {
   try {
     const data = await fetchImages(currentQuery);
     renderImages(data.hits);
+    lightbox.refresh();
 
     const loadedImages = document.querySelectorAll('.gallery-item').length;
 
+    // Перевірка: якщо всі зображення завантажені
     if (loadedImages >= totalHits) {
       loadMoreBtn.style.display = 'none';
       showEndOfCollectionMessage();
@@ -67,15 +80,25 @@ const handleLoadMore = async () => {
       loadMoreBtn.style.display = 'block';
     }
 
-    const galleryItem = document.querySelector('.gallery-item');
-    if (!galleryItem) return; 
+    // Логіка для скролу вниз на висоту двох рядків
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    if (galleryItems.length > 0) {
+      const gallery = document.querySelector('.gallery');
+      const firstRowItem = galleryItems[0];
+      const { height: cardHeight } = firstRowItem.getBoundingClientRect();
 
-    const { height: cardHeight } = galleryItem.getBoundingClientRect();
-    window.scrollBy({
-      top: cardHeight * 2,
-      left: 0,
-      behavior: 'smooth',
-    });
+      // Визначаємо відступи між рядками
+      const rowGap = parseFloat(getComputedStyle(gallery).gap || 0);
+
+      // Висота двох рядків
+      const itemsInRow = 5; // 5 елементів у рядку згідно з вашим стилем
+      const scrollHeight = (cardHeight + rowGap) * 2; // Висота двох рядків
+      window.scrollBy({
+        top: scrollHeight,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
   } catch (error) {
     iziToast.error({
       title: 'Error!',
@@ -87,6 +110,7 @@ const handleLoadMore = async () => {
   }
 };
 
+// Обробка сабміту форми
 form.addEventListener('submit', async e => {
   e.preventDefault();
   const query = input.value.trim();
@@ -105,5 +129,5 @@ form.addEventListener('submit', async e => {
   await handleSearch();
 });
 
+// Додавання обробника на кнопку Load More
 loadMoreBtn.addEventListener('click', handleLoadMore);
-

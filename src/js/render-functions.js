@@ -1,23 +1,21 @@
 import iziToast from 'izitoast';
+
 export const renderImages = images => {
   const gallery = document.querySelector('.gallery');
 
-  images.forEach(image => {
-    const galleryItem = document.createElement('div');
-    galleryItem.classList.add('gallery-item');
+  const markup = images
+    .map(image => {
+      return `
+        <div class="gallery-item">
+          <a href="${image.largeImageURL}">
+            <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+          </a>
+        </div>
+      `;
+    })
+    .join('');
 
-    const img = document.createElement('img');
-    img.src = image.webformatURL;
-    img.alt = image.tags;
-    img.loading = 'lazy';
-
-    const info = document.createElement('div');
-    info.classList.add('info');
-
-    galleryItem.appendChild(img);
-    galleryItem.appendChild(info);
-    gallery.appendChild(galleryItem);
-  });
+  gallery.insertAdjacentHTML('beforeend', markup);
 };
 
 export const clearGallery = () => {

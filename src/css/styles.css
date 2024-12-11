@@ -9,6 +9,8 @@
 @import url('./back-link.css');
 @import url('./footer.css');
 
+
+
 header {
   background-color: #007bff;
   padding: 10px;
@@ -46,15 +48,15 @@ button:hover {
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 20px; /* Відступ між елементами */
   padding: 20px;
-
   width: 100%;
   margin: 0 auto;
 }
 
 .gallery-item {
   flex: 1 1 calc((100% - 120px) / 5);
+  height: 250px; /* Фіксована висота */
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -65,7 +67,8 @@ button:hover {
 
 .gallery-item img {
   width: 100%;
-  height: auto;
+  height: 100%; /* Повна висота */
+  object-fit: cover;
   display: block;
 }
 
@@ -90,7 +93,8 @@ button:hover {
   color: #333;
 }
 
-.btn-container{
-    display: flex;
-    justify-content: center;
+.btn-container {
+  display: flex;
+  justify-content: center;
 }
+

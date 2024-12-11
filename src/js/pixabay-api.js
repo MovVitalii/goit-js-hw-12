@@ -20,9 +20,17 @@ export const fetchImages = async query => {
       },
     });
 
+    if (response.status !== 200) {
+      throw new Error(`Failed to fetch images. Status: ${response.status}`);
+    }
+
+    if (response.data.totalHits === 0) {
+      throw new Error('No images found for your search query.');
+    }
+
     return response.data;
   } catch (error) {
-    console.error('Error fetching images:', error);
+    console.error('Error fetching images:', error.message);
     throw new Error('Failed to fetch images');
   }
 };
